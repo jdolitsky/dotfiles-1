@@ -1,0 +1,78 @@
+#!/bin/bash
+
+mkdir -p ~/.going
+
+DATESTR=`date "+%Y%m%d_%H%M%S"`
+
+function backupfile {
+    if [[ -e ~/$1 ]]
+    then
+        mv ~/$1 ~/${1}_${DATESTR}
+    else
+        echo No existing $1 to back up
+    fi
+}
+
+backupfile .bash_profile
+backupfile .bashrc
+backupfile .gitconfig
+backupfile .gitignore
+backupfile .pylintrc
+backupfile .vimrc
+backupfile .vim
+backupfile .screenrc
+backupfile .ssh/config
+
+
+cp bash_profile ~/.bash_profile
+cp bashrc ~/.bashrc
+cp gitconfig ~/.gitconfig
+cp gitignore ~/.gitignore
+cp pylintrc ~/.pylintrc
+cp vimrc ~/.vimrc
+cp screenrc ~/.screenrc
+cp -r vim ~/.vim
+mkdir -p ~/.ssh
+cp sshconfig ~/.ssh/config
+chmod 400 ~/.ssh/config
+
+
+function install_pkgs() {
+   pkgs=$@ 
+
+    if [[ -e /etc/redhat-release ]]
+    then
+        do_install=0
+        for pkg in $pkgs
+        do
+            if [[ $(rpm -qa $pkg) == "" ]]
+            then
+                do_install=1
+            fi
+        done
+        if [[ $do_install == 1 ]]
+        then
+            sudo yum install $pkgs
+        fi
+    elif [[ -e /etc/debian_version ]]
+    then
+        do_install=0
+        for pkg in $pkgs
+        do
+            dpkg --list $pkg > /dev/null 2>&1
+            if [[ $? != 0 ]]
+            then
+                do_install=1
+            fi
+        done
+        if [[ $do_install == 1 ]]
+        then
+            sudo aptitude install $pkgs
+        fi
+    else
+        echo "Unkown platform, not checking for $pkg"
+    fi
+}
+
+echo "To install dev packages, run: install_pkgs pylint tree ctags"
+

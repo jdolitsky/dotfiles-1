@@ -1,0 +1,30 @@
+function go {
+
+if [ $1 ] 
+then 
+   cd `cat ~/.going/${1} || echo .`
+   echo `pwd`
+else
+   cd `cat ~/.going/_back | head -n 1`
+   echo `pwd`
+   cat ~/.going/_back | awk 'BEGIN { once=0 } { if(once++ != 0) { print $0 } }' > ~/.going/_backawk
+   mv ~/.going/_backawk ~/.going/_back
+fi ; }
+
+function on { echo "on `cat ~/.going/${1-_back} || echo .`" 1>&2 ; cat ~/.going/${1-_back} || echo . ; }
+
+function here { 
+if [ $1 ]
+then
+   pwd > ~/.going/${1}
+   echo "go $1 will go to `pwd`"
+else
+   echo `pwd` > ~/.going/temp
+   cat ~/.going/temp ~/.going/_back > ~/.going/_backcat
+   mv ~/.going/_backcat ~/.going/_back
+   rm ~/.going/temp
+fi ;} 
+
+
+function there {
+( cd ~/.going ; grep '' * ) | grep -i -E "${1-.*}:" | sort -t: -k2 - | awk 'BEGIN { FS=":"; } {  printf("%-10s %s\n",$1,$2); }'; }

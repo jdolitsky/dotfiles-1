@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/!svn/ver/200687/users/pbrinkmann/.scriptlib/stderred
+END
+.gitignore
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/193172/users/pbrinkmann/.scriptlib/stderred/.gitignore
+END
+COPYING
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/193172/users/pbrinkmann/.scriptlib/stderred/COPYING
+END
+README.md
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/!svn/ver/193172/users/pbrinkmann/.scriptlib/stderred/README.md
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/200687/users/pbrinkmann/.scriptlib/stderred/Makefile
+END
+stderred.c
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/193172/users/pbrinkmann/.scriptlib/stderred/stderred.c
+END
+stderred.c.htmlbold
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/!svn/ver/193172/users/pbrinkmann/.scriptlib/stderred/stderred.c.htmlbold
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/!svn/ver/193172/users/pbrinkmann/.scriptlib/stderred/LICENSE
+END

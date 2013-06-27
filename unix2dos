@@ -1,0 +1,44 @@
+#!/usr/bin/perl -w
+
+#
+# unix2dos
+#
+# Changes a unix text file to a dos text file (ie, adds a \r at
+# the end of each line, in addition to the \n).
+#
+# usage:
+#
+# unix2dos [input file [output file]]
+#
+# Input and output default to stdin/stdout, but can be overridden
+# by specifying an input file and output file.
+#
+# To convert the file afile.txt to dos, run the following:
+# unix2dos afile.txt afile.txt
+#
+
+if( $infile = shift) {
+   open(INPUT,"<$infile") ||
+       die "sorry, couldn't open input file $infile: $!\n";
+} else {
+   open(INPUT,"<&STDIN");
+}
+ 
+while ( <INPUT> ) { 
+   s/([^\r])\n/$1\r\n/; 
+   s/^\n/\r\n/;
+   push(@outlines,$_);
+}
+
+close(INPUT) if defined($infile);
+
+if( $outfile = shift) {
+   open(OUTPUT,">$outfile") ||
+       die "sorry, couldn't open output file $outfile: $!\n";
+} else {
+   open(OUTPUT,">&STDOUT");
+}
+
+foreach $line (@outlines) {
+   print OUTPUT $line;
+}

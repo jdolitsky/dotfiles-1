@@ -1,0 +1,43 @@
+#!/usr/bin/perl -w
+
+#
+# dos2unix
+#
+# Changes a dos text file to a unix text file (ie, strips the \r at
+# the end of each line)
+#
+# usage:
+#
+# dos2unix [input file [output file]]
+#
+# Input and output default to stdin/stdout, but can be overriden
+# by specifying an input file and output file.
+#
+# To convert the file afile.txt to unix, run the following:
+# dos2unix afile.txt afile.txt
+#
+
+if( $infile = shift) {
+   open(INPUT,"<$infile") ||
+       die "sorry, couldn't open input file $infile: $!\n";
+} else {
+   open(INPUT,"<&STDIN");
+}
+
+while ( <INPUT> ) { 
+   s/\r\n/\n/;
+   push(@outlines,$_);
+}
+
+close(INPUT);
+
+if( $outfile = shift) {
+   open(OUTPUT,">$outfile") ||
+       die "sorry, couldn't open output file $outfile: $!\n";
+} else {
+   open(OUTPUT,">&STDOUT");
+}
+
+foreach $line (@outlines) {
+   print OUTPUT $line;
+}

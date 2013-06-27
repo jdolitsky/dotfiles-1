@@ -1,0 +1,15 @@
+function boldprint {
+   echo "[1m$@[0m" | tr  \\033
+}
+
+function ulprint {
+   echo "[4m$@[0m" | tr  \\033
+}
+
+function blinkprint {
+   echo "[5m$@[0m" | tr  \\033
+}
+
+function revprint {
+   echo "[7m$@[0m" | tr  \\033
+}

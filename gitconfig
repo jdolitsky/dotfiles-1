@@ -1,0 +1,11 @@
+[user]
+	email = pbrinkmann@mediatemple.net
+	name = Paul Brinkmann
+[color]
+	diff = true
+[alias]
+    ci = commit
+    cln = clean -fdx
+    clonemt = !sh -c 'git clone "git@git.mtsvc.net:/${0}"'
+[core]
+	excludesfile = /home/pbrinkmann/.gitignore

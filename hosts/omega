@@ -1,0 +1,82 @@
+# Start and manage named screen sessions
+
+# removes and PID files for closed screen sessions
+function cleanup_screens {
+    for screenname in `find ~/.screens -type f`
+    do
+        ps -p `cat $screenname` >/dev/null 2>&1
+        if [ $? != 0 ]; then
+            echo "Expiring screen session $screenname"
+            rm $screenname
+        fi
+    done
+}
+
+# Starts a new screen session
+# sc <screen name>
+function sc {
+    NAME=$1
+
+    cleanup_screens
+
+    if [ ! -d ~/.screens ]; then
+        echo "Please create a ~/.screens dir"
+        return 1
+    fi
+
+    if [[ $NAME = "" ]]; then
+        echo "Please specify a screen session name"
+        return 1
+    fi
+
+    if [ -e ~/.screens/$NAME ]; then
+        echo "Screen \"$NAME\" already exists"
+        return 1
+    fi
+
+    # compare a before and after listing of the screen ids to see which one is the new one
+    EXISTING_SCREENS=`screen -ls | grep pts- | sed 's/\.pts.*//' | sed 's/\t*//'`
+    screen &
+    CURRENT_SCREENS=`screen -ls | grep pts- | sed 's/\.pts.*//' | sed 's/\t*//'`
+    NEW_SCREEN=`echo $EXISTING_SCREENS $CURRENT_SCREENS | sed 's/ /\n/g' | sort | uniq -u`
+    echo $NEW_SCREEN > ~/.screens/$NAME
+    fg
+    reset
+}
+
+function sl {
+    cleanup_screens
+
+    ATTACHED_SCREENS=`screen -ls | grep Attached`
+
+    for i in `ls ~/.screens`
+    do
+       SID=`cat ~/.screens/$i`
+       ATTACHED=$color_none_un
+       echo $ATTACHED_SCREENS | grep $SID >/dev/null
+       if [[ $? == 0 ]]
+       then
+            ATTACHED=$color_red_un
+       fi
+       printf $ATTACHED
+       printf "%-8s %s\n" "${i}" "($SID)"
+    done
+}
+
+function sr {
+    NAME=`echo $1 | tr A-Z a-z`
+    DETACH=${2:-""}
+
+    if [[ $NAME = "" ]]; then
+        echo "Please give a screen session name"
+        return 1
+    fi
+
+    if [[ ! -e ~/.screens/$NAME ]]; then
+        echo "The screen $NAME was not found"
+        return 1
+    fi
+
+    screen $DETACH -r `cat ~/.screens/$NAME`
+}
+

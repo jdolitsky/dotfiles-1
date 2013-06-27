@@ -1,0 +1,15 @@
+Host *
+    User pbrinkmann
+    ForwardAgent yes
+
+Host repo
+    HostName repo.mtsvc.net
+
+Host ci01
+    HostName ci01.mtsvc.net
+
+Host dev02
+    HostName dev02.mtsvc.net
+
+Host enigma
+    HostName 172.17.2.163
