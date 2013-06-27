@@ -30,8 +30,8 @@ export HISTFILESIZE=10000
 export LS_COLORS="ex=33:di=35"
 
 # color stderr red on debian (doesn't seem to work for centos)
-if [[ -e /etc/debian_version && -e ~/.scriptlib/stderred/lib64/stderred.so ]]; then
-    export LD_PRELOAD="$HOME/.scriptlib/stderred/lib64/stderred.so"
+if [[ -e /etc/debian_version && -e ~/.dotfiles/stderred/lib64/stderred.so ]]; then
+    export LD_PRELOAD="$HOME/.dotfiles/stderred/lib64/stderred.so"
 fi
 
 # check the window size after each command and, if necessary,
@@ -65,13 +65,13 @@ alias vl='visage list | visage_machine_list_formatter'
 # stuipd terminals!   fix the backspace doing funny things in vi
 stty erase ^H
 
-export PATH="$PATH:/opt/mt/bin:~/.scriptlib:."
+export PATH="$PATH:/opt/mt/bin:~/.dotfiles:."
 export EDITOR=vim
 
 # tell bash tabcompletion to ignore .svn dirs
 export FIGNORE=.svn
 
-. ~/.scriptlib/going
+. ~/.dotfiles/going
 
 
 function prompt_f ()
@@ -153,7 +153,7 @@ PROMPT_COMMAND="prompt_f"
 
 
 # execute host-specific stuff
-HOSTFILE=~/.scriptlib/hosts/`hostname`
+HOSTFILE=~/.dotfiles/hosts/`hostname`
 if [ -e $HOSTFILE ]
 then
     . $HOSTFILE
