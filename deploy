@@ -5,33 +5,26 @@ mkdir -p ~/.going
 DATESTR=`date "+%Y%m%d_%H%M%S"`
 
 function backupfile {
-    if [[ -e ~/$1 ]]
+    if [[ -e ~/"$1" ]]
     then
-        mv ~/$1 ~/${1}_${DATESTR}
-    else
-        echo No existing $1 to back up
+        mv ~/"$1" ~/"${1}_${DATESTR}"
     fi
 }
 
-backupfile .bash_profile
-backupfile .bashrc
-backupfile .gitconfig
-backupfile .gitignore
-backupfile .pylintrc
-backupfile .vimrc
-backupfile .vim
-backupfile .screenrc
+for dotfile in bash_profile \
+               bashrc       \
+               gitconfig    \
+               gitignore    \
+               pylintrc     \
+               vim          \
+               vimrc        \
+               screenrc
+do
+    backupfile ".$dotfile"
+    cp -r "$dotfile" ~/."${dotfile}"
+done
+
 backupfile .ssh/config
-
-
-cp bash_profile ~/.bash_profile
-cp bashrc ~/.bashrc
-cp gitconfig ~/.gitconfig
-cp gitignore ~/.gitignore
-cp pylintrc ~/.pylintrc
-cp vimrc ~/.vimrc
-cp screenrc ~/.screenrc
-cp -r vim ~/.vim
 mkdir -p ~/.ssh
 cp sshconfig ~/.ssh/config
 chmod 400 ~/.ssh/config
