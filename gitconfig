@@ -7,5 +7,11 @@
     ci = commit
     cln = clean -fdx
     clonemt = !sh -c 'git clone "git@git.mtsvc.net:/${0}"'
+    lol = log --oneline --graph --decorate
+    st = status
 [core]
 	excludesfile = /home/pbrinkmann/.gitignore
+[merge]
+    tool = vimdiff
+[diff]
+    tool = vimdiff
