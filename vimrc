@@ -131,3 +131,4 @@ set laststatus=2
 let g:airline_theme='solarized'
 
 
+let g:syntastic_perl_lib_path = '.,..,../lib,./lib'
