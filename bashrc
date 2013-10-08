@@ -22,7 +22,8 @@ color_none_un="\e[0m"
 # don't put duplicate lines in the history. See bash(1) for more options
 export HISTCONTROL=ignoredups
 
-# more history pls (default is 1,000)
+# more history pls (default is 500)
+export HISTSIZE=10000
 export HISTFILESIZE=10000
 
 # let's make ls a little more pretty
