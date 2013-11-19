@@ -113,7 +113,7 @@ function prompt_f ()
             ps1_host_color=${color_yellow}
             ;;
         # frequently used production hosts
-        accountcenter.mediatemple.net|repo.mtsvc.net|ci01.mtsvc.net|pm01|git.mtsvc.net)
+        accountcenter.mediatemple.net|repo.mtsvc.net|ci01.mtsvc.net|ci01-git.mtsvc.net|pm01|git.mtsvc.net)
             ps1_host_color=${color_red}
             ;;
         *)
