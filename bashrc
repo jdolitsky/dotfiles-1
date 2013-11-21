@@ -70,7 +70,7 @@ export PATH="$PATH:/opt/mt/bin:~/.dotfiles:."
 export EDITOR=vim
 
 # tell bash tabcompletion to ignore .svn dirs
-export FIGNORE=.svn
+export FIGNORE=.svn:.git
 
 . ~/.dotfiles/going
 
