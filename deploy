@@ -20,14 +20,28 @@ for dotfile in bash_profile \
                vimrc        \
                screenrc
 do
-    backupfile ".$dotfile"
-    cp -r "$dotfile" ~/."${dotfile}"
+    if ! diff -r --brief ~/."${dotfile}" "$dotfile" 
+    then
+        if [[ ! -d $dotfile ]]
+        then
+            echo "changes to ~/.${dotfile}:"
+            diff -C 2 ~/."${dotfile}" "$dotfile" 
+        fi
+
+        backupfile ".$dotfile"
+        cp -r "$dotfile" ~/."${dotfile}"
+    fi
 done
 
-backupfile .ssh/config
-mkdir -p ~/.ssh
-cp sshconfig ~/.ssh/config
-chmod 400 ~/.ssh/config
+if ! diff --brief ~/.ssh/config sshconfig
+then
+    echo "changes to ~/.ssh/config:"
+    diff -C 2 ~/.ssh/config sshconfig
+    backupfile .ssh/config
+    mkdir -p ~/.ssh
+    cp sshconfig ~/.ssh/config
+    chmod 400 ~/.ssh/config
+fi
 
 
 function install_pkgs() {

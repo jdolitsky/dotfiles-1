@@ -1,3 +1,6 @@
+""
+"" Paul's .vimrc
+""
 
 call pathogen#infect()
 
@@ -13,7 +16,6 @@ let g:solarized_termcolors=256
 " for transparent backgrouns, if there are display issues
 "let g:solarized_termtrans=1
 colorscheme solarized
-
 
 " From Perl Best Practices
 set autoindent
@@ -129,6 +131,5 @@ set ttimeoutlen=50
 set laststatus=2
 
 let g:airline_theme='solarized'
-
 
 let g:syntastic_perl_lib_path = ['.', '..', '../lib', './lib' ]
