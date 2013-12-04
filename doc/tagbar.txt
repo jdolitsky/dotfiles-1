@@ -318,6 +318,8 @@ The following mappings are valid in the Tagbar window:
                 Map option: tagbar_map_jump
 p             Jump to the tag under the cursor, but stay in the Tagbar window.
                 Map option: tagbar_map_preview
+P             Open the tag in a |preview-window|.
+                Map option: tagbar_map_previewwin
 <LeftMouse>   When on a fold icon, open or close the fold depending on the
               current state.
 <2-LeftMouse> Same as <CR>. See |g:tagbar_singleclick| if you want to use a
@@ -562,6 +564,36 @@ Example:
         let g:tagbar_autoshowtag = 1
 <
 
+                                                     *g:tagbar_previewwin_pos*
+g:tagbar_previewwin_pos~
+Default: topleft
+
+The position of the preview window. Valid values are the window splitting
+commands that are described starting from |:vertical|. Set it to an empty
+string to use the options 'splitbelow' and 'splitright'.
+
+Example:
+>
+        let g:tagbar_previewwin_pos = "aboveleft"
+<
+If you want to disable line numbers in the preview window put something like
+this into your vimrc:
+>
+        autocmd BufWinEnter * if &previewwindow | setlocal nonumber | endif
+<
+
+                                                        *g:tagbar_autopreview*
+g:tagbar_autopreview~
+Default: 0
+
+If this variable is set to 1 then moving the cursor in the Tagbar window will
+automatically show the current tag in the preview window.
+
+Example:
+>
+        let g:tagbar_autopreview = 1
+<
+
                                               *g:tagbar_updateonsave_maxlines*
 g:tagbar_updateonsave_maxlines~
 
@@ -748,6 +780,9 @@ You can ignore specific files by setting the |buffer-variable|
 >
     autocmd BufNewFile,BufReadPost foo.cpp let b:tagbar_ignore = 1
 <
+Note that autocommands are order-sensitive, so make sure that this autocommand
+gets defined before the ones that Tagbar defines so the variable will get
+found at the right time.
 
 ==============================================================================
 6. Extending Tagbar                                            *tagbar-extend*
