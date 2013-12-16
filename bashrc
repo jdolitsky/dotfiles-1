@@ -60,7 +60,7 @@ alias svnstat='svn --ignore-externals status | egrep -v "^X"'
 alias bp='build_package'
 alias svnurl='svn info | grep "^URL" | sed "s/URL: //"'
 alias pt='perltidy -pbp -l=100 -nst -b -nse -nasc'
-alias auas='sudo aptitude update && sudo aptitude safe-upgrade'
+alias auas='sudo aptitude update && sudo aptitude safe-upgrade -V'
 alias vl='visage list | visage_machine_list_formatter'
 
 # stuipd terminals!   fix the backspace doing funny things in vi
